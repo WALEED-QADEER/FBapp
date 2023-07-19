@@ -1,0 +1,51 @@
+<h3> Creator Id:  <%= current_user.id %> </h3>
+<%= form_with model: @project do |form| %>
+    <div>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+      <% @project.errors.full_messages_for(:name).each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+    </div>
+
+   
+
+
+<div>
+        <%= form.label :completion_date, "Completion Date:" %>
+<% if @project.date.present? %>
+  <%= form.datetime_field :date, value: @project.date.strftime('%Y-%m-%dT%H:%M:%S') %>
+<% else %>
+  <%= form.datetime_field :date %>
+  <% @project.errors.full_messages_for(:date).each do |message| %>
+    <div><%= message %></div>
+<% end %>
+<% end %>
+</div>
+    
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Project.statuses.keys.map { |status| [status.humanize, status] } %>
+  <% @project.errors.full_messages_for(:project).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+
+
+<style>
+.hidden-field {
+  visibility: hidden;
+}
+</style>
+
+ 
+<%= form.number_field :user_id, :value => current_user.id, :readonly => true, class: "hidden-field"%>
+<% @project.errors.full_messages_for(:user_id).each do |message| %>
+<div><%= message %></div>
+<% end %>
+    
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>

@@ -1,0 +1,19 @@
+<%= link_to 'Home', root_path %>
+<h1>Project Name: <%= @project.name %></h1>
+<p>Status : <%= @project.status %></p>
+<p>Completion Date: <%= @project.date %></p>
+<p>Project Creator ID: <%= @project.user_id %></p>
+<p>Project Creator Email: <%= @project.user.email %></p>
+<h2>
+Tasks
+</h2>
+<ui>
+<% @project.tasks.each do |task| %>
+    <li>
+    <%= link_to task.task_type, task %>
+    </li>
+    <% end %>
+</ul>
+
+
+
