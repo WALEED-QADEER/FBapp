@@ -10,6 +10,11 @@
 <p>Creator Email: <%= @task.created_by_user.email %></p>
 <p>Completion Date: <%= @task.completion_date %></p>
 
+<% if @task.ss.attached? %>
+<h4>ScreenShot</h4>
+    <image src="<%=(url_for(@task.ss))%>">
+<% end %>
+
 
 
 

@@ -18,6 +18,15 @@
         <% end %>
     </div>
 
+
+    <div>
+      <%= form.label :ScreenShot %><br>
+      <%= form.file_field :ss %>
+      <% @task.errors.full_messages_for(:ss).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+
     
   
     <div>
@@ -29,16 +38,21 @@
     <% end %>
         </div>
 
-        <div>
-    <%= form.label :project_id  %><br>
-    
-    <%= form.collection_select :project_id, Project.accessible_by(current_ability),:id,:name, include_blank: "Select an Project" %>
-    <% @task.errors.full_messages_for(:project_id).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-        </div>
-        
-        
+
+
+<%= text_field_tag 'search', '', id: 'search-input', placeholder: 'Search projects...' %>
+<br>
+<%= form.select :project_id, options_for_select([]), {}, id: 'dropdown-menu' %>
+
+
+<br>
+  <%= form.label :project_id %>
+  <%= form.select :project_id, options_for_select(project_options), { include_blank: true }, class: 'select2' %>
+ 
+
+
+
+
         <div>
         <%= form.label :completion_date, "Completion Date:" %>
 <% if @task.completion_date.present? %>

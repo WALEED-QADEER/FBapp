@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   load_and_authorize_resource
+  include TasksHelper
     def index
         
         @tasks = Task.accessible_by(current_ability)
@@ -25,6 +26,15 @@ class TasksController < ApplicationController
           @task = Task.find(params[:id])
           
       end
+      def search
+        @projects = Project.where('name LIKE ?', "%#{params[:q]}%").accessible_by(current_ability)
+        
+    respond_to do |format|
+      format.json { render json: @projects }
+    end
+      end
+
+     
       def new
           @task = Task.new
             
@@ -71,6 +81,7 @@ class TasksController < ApplicationController
        
         private
         def task_params
-          params.require(:task).permit(:task_type, :user_id, :project_id, :description, :completion_date, :status, :created_by_id)
+          params.require(:task).permit(:task_type, :user_id, :project_id, :description, :completion_date, :status, :created_by_id, :ss)
         end
+        
 end

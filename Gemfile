@@ -73,6 +73,12 @@ gem 'sidekiq', '~> 6.2' # Use the latest 6.x version
   # Gemfile
 gem 'redis'
 
+gem 'jquery-rails', '~> 4.4.0'
+
+
+
+gem 'select2-rails', '~> 4.0', '>= 4.0.3'
+
 
 
 end

@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   # get '/sidekiq', to: 'some#some_action'
   
     mount Sidekiq::Web => '/sidekiq'
- 
-  resources :projects
-  resources :tasks
+   
+    resources :projects
+  resources :tasks do
+    collection do
+      get 'search'
+    end
+  end
+
 end

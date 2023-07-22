@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
     def index
+      
         @projects = Project.accessible_by(current_ability)
         # Blog.accessible_by(current_ability, :update)
         
@@ -11,18 +12,19 @@ class ProjectsController < ApplicationController
       end
       def show
           @project = Project.find(params[:id])
-          
-          
+          @users = @project.users
+                   
       end
+     
       def new
           @project = Project.new
+          @project.memberships.build
             
          
         end
       
         def create
           @project = Project.new(project_params)
-          
          
           if @project.save
             redirect_to @project
@@ -62,6 +64,6 @@ class ProjectsController < ApplicationController
        
         private
         def project_params
-          params.require(:project).permit(:name, :user_id, :status, :date)
+          params.require(:project).permit(:name, :creator, :status, :date, memberships_attributes: [:id, :user_id, :_destroy])
         end
     end

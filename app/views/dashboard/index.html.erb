@@ -1,4 +1,4 @@
-<% if current_user.admin? or current_user.manager? %>
+<% if current_user.qa? or current_user.manager? %>
 <%= link_to 'Projects', projects_path %>
 <br>
 <% end %>
